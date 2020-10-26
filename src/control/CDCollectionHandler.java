@@ -4,6 +4,7 @@ import model.CompactDisc;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * Created by Jean-Pierre on 21.10.2016.
@@ -93,8 +94,8 @@ public class CDCollectionHandler {
      * @param box - Gewählter CD-Ständer
      */
     public void pack(int box){
-        for(int i = allCDs[box].length; i>=0; i--){
-            for(int j=i; j>i; j--) {
+        for(int i = 0; i<allCDs[box].length-1; i++){
+            for(int j=0; j<allCDs[box].length-1; j++) {
                 if (allCDs[box][j] == null) {
                     CompactDisc help = allCDs[box][j];
                     allCDs[box][j] = allCDs[box][j+1];
@@ -110,6 +111,5 @@ public class CDCollectionHandler {
      */
     public void sort(int box){
         pack(box);
-        Arrays.sort(allCDs[box]);
     }
 }
