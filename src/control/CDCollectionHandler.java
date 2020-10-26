@@ -94,7 +94,7 @@ public class CDCollectionHandler {
      */
     public void pack(int box){
         for(int i = allCDs[box].length; i>=0; i--){
-            for(int j=i; j<i; j++) {
+            for(int j=i; j>i; j--) {
                 if (allCDs[box][j] == null) {
                     CompactDisc help = allCDs[box][j];
                     allCDs[box][j] = allCDs[box][j+1];
