@@ -128,29 +128,51 @@ public class CDCollectionHandler {
     public void sort(int box) {
         pack(box);
 
-        for (int i = 0; i < allCDs[box].length - 1; i++) {
-            for (int j = 0; j < allCDs[box].length - 1; j++) {
-                if (allCDs[box][j] != null && allCDs[box][j + 1] != null) {
+        for (int i = 0; i < allCDs[box].length; i++) {
+            for (int j = allCDs[box].length-1; j > i; j--) {
+                if (allCDs[box][j] != null && allCDs[box][j - 1] != null) {
                     char[] artistChars1 = allCDs[box][j].getArtist().toCharArray();
-                    char[] artistChars2 = allCDs[box][j+1].getArtist().toCharArray();
+                    char[] artistChars2 = allCDs[box][j-1].getArtist().toCharArray();
                     char[] titleChars1 = allCDs[box][j].getTitle().toCharArray();
-                    char[] titleChars2 = allCDs[box][j+1].getTitle().toCharArray();
+                    char[] titleChars2 = allCDs[box][j-1].getTitle().toCharArray();
 
-                    for(int h = 0; h < artistChars1.length && h < artistChars2.length; h++){
+                    boolean a = true;
+                    for(int h = 0; h < artistChars1.length && h < artistChars2.length && a; h++){
                         if(Character.getNumericValue(artistChars1[h])<Character.getNumericValue(artistChars2[h])){
                             CompactDisc help = allCDs[box][j];
-                            allCDs[box][j] = allCDs[box][j + 1];
-                            allCDs[box][j + 1] = help;
-                            return;
+                            allCDs[box][j] = allCDs[box][j - 1];
+                            allCDs[box][j - 1] = help;
+                            a = false;
+                        }else if(Character.getNumericValue(artistChars1[h])>Character.getNumericValue(artistChars2[h])){
+                            a = false;
                         }
                     }
-                    for(int h = 0; h < titleChars1.length && h < titleChars2.length; h++){
+                    if(a && artistChars1.length < artistChars2.length){
+                        CompactDisc help = allCDs[box][j];
+                        allCDs[box][j] = allCDs[box][j - 1];
+                        allCDs[box][j - 1] = help;
+                        a = false;
+                    }else if(a && artistChars1.length > artistChars2.length){
+                        a = false;
+                    }
+
+                    for(int h = 0; h < titleChars1.length && h < titleChars2.length && a; h++){
                         if(Character.getNumericValue(titleChars1[h])<Character.getNumericValue(titleChars2[h])){
                             CompactDisc help = allCDs[box][j];
-                            allCDs[box][j] = allCDs[box][j + 1];
-                            allCDs[box][j + 1] = help;
-                            return;
+                            allCDs[box][j] = allCDs[box][j - 1];
+                            allCDs[box][j - 1] = help;
+                            a = false;
+                        }else if(Character.getNumericValue(titleChars1[h])>Character.getNumericValue(titleChars2[h])){
+                            a = false;
                         }
+                    }
+                    if(a && titleChars1.length < titleChars2.length){
+                        CompactDisc help = allCDs[box][j];
+                        allCDs[box][j] = allCDs[box][j - 1];
+                        allCDs[box][j - 1] = help;
+                        a = false;
+                    }else if(a && titleChars1.length > titleChars2.length){
+                        a = false;
                     }
                 }
             }
