@@ -102,11 +102,14 @@ public class CDCollectionHandler {
      * @param box - Gewählter CD-Ständer
      */
     public void pack(int box) {
-        boolean cd = true;
-        for (int i = 0; i < allCDs[box].length && cd; i++) {
+        for(int i = 0; i < allCDs[box].length; i++){
             if (allCDs[box][i] != null && allCDs[box][i].getArtist().equals("Empty") && allCDs[box][i].getTitle().equals("Empty")) {
                 allCDs[box][i] = null;
             }
+        }
+
+        boolean cd = true;
+        for (int i = 0; i < allCDs[box].length && cd; i++) {
             if(allCDs[box][i] == null) {
                 cd = false;
                 for (int j = i+1; j < allCDs[box].length && !cd; j++) {
